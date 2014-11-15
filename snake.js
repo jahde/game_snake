@@ -33,9 +33,9 @@ var moveSnake = function(snake) {
 }
 
 var growSnake = function(snake) {
-  var tipOfTailIndex = snake.length - 1;
-  var tipOfTail = snake[snake.length - 1];
-  snake.push({ top: tipOfTail, left: tipOfTail.left });
+  var indexOfLastSegment = snake.length - 1;
+  var lastSegment = snake[snake.length - 1];
+  snake.push({ top: lastSegment.top, left: lastSegment.left });
   return snake;
 }
 
@@ -134,9 +134,9 @@ var moveSnake = function(snake) {
 }
 
 var growSnake = function(snake) {
-  var indexOfLastSegment = snake.length - 1;
-  var lastSegment = snake[snake.length - 1];
-  snake.push({ top: lastSegment.top, left: lastSegment.left });
+  var tipOfTailIndex = snake.length - 1;
+  var tipOfTail = snake[snake.length - 1];
+  snake.push({ top: tipOfTail, left: tipOfTail.left });
   return snake;
 }
 
