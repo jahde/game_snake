@@ -58,8 +58,13 @@ var advanceGame = function() {
   }
 
   if (ate(newSnake, CHUNK.gameBoundaries())) {
+
     CHUNK.endGame();
+    alert("THE GAME IS ENDING")
+    // console.log("THE GAME IS ENDING")
+    // to see the error messages
     CHUNK.flashMessage("Woops! you hit a wall!");
+    alert("THE FLASH MESSAGE SHOULD HAVE HAPPENED");
   }
 
   snake = newSnake;
