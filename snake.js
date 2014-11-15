@@ -76,6 +76,7 @@ var snake = [{ top: 1, left: 0, direction: "down" }, {top: 0, left: 0, direction
 CHUNK.executeNTimesPerSecond(advanceGame, 1);
 CHUNK.onArrowKey(changeDirection);
 
+// this is a test
 
 /*
 // drawSnake(snake);
