@@ -33,9 +33,9 @@ var moveSnake = function(snake) {
 }
 
 var growSnake = function(snake) {
-  var indexOfLastSegment = snake.length - 1;
-  var lastSegment = snake[snake.length - 1];
-  snake.push({ top: lastSegment.top, left: lastSegment.left });
+  var tipOfTailIndex = snake.length - 1;
+  var tipOfTail = snake[snake.length - 1];
+  snake.push({ top: tipOfTail, left: tipOfTail.left });
   return snake;
 }
 
@@ -45,15 +45,24 @@ var ate = function(snake, otherThing) {
 }
 
 var advanceGame = function() {
-  snake = moveSnake(snake);
-  if (CHUNK.detectCollisionBetween([apple], snake)) {
-    snake = growSnake(snake);
+  var newSnake = moveSnake(snake);
+
+  if (ate(newSnake, snake)) {
+    CHUNK.endGame();
+    CHUNK.flashMessage("Woops! You ate yourself!");
+  }
+
+  if (ate(newSnake, [apple])) {
+    newSnake = growSnake(newSnake);
     apple = CHUNK.randomLocation();
   }
-  if (CHUNK.detectCollisionBetween(snake, CHUNK.gameBoundaries())) {
+
+  if (ate(newSnake, CHUNK.gameBoundaries())) {
     CHUNK.endGame();
     CHUNK.flashMessage("Woops! you hit a wall!");
   }
+
+  snake = newSnake;
   draw(snake, apple);
 }
 
@@ -123,6 +132,13 @@ var moveSnake = function(snake) {
   return newSnake
 }
 
+var growSnake = function(snake) {
+  var indexOfLastSegment = snake.length - 1;
+  var lastSegment = snake[snake.length - 1];
+  snake.push({ top: lastSegment.top, left: lastSegment.left });
+  return snake;
+}
+
 var advanceGame = function() {
   snake = moveSnake(snake);
   if (CHUNK.detectCollisionBetween(snake, CHUNK.gameBoundaries())) {
@@ -130,6 +146,19 @@ var advanceGame = function() {
     CHUNK.flashMessage("Woops! you hit a wall!");
   }
   drawSnake(snake);
+}
+
+var advanceGame = function() {
+  snake = moveSnake(snake);
+  if (CHUNK.detectCollisionBetween([apple], snake)) {
+    snake = growSnake(snake);
+    apple = CHUNK.randomLocation();
+  }
+  if (CHUNK.detectCollisionBetween(snake, CHUNK.gameBoundaries())) {
+    CHUNK.endGame();
+    CHUNK.flashMessage("Woops! you hit a wall!");
+  }
+  draw(snake, apple);
 }
 
 var apple = { top: 8, left: 10 };
